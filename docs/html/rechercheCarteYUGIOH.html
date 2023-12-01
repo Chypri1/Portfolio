@@ -64,7 +64,7 @@
 
             // Enregistrez la carte dans le stockage local
             saveCardToLocalStorage(cardInfo);
-
+            
             // Mettez à jour le tableau des cartes possédées
             updateOwnedCardsTable();
         }
@@ -72,7 +72,7 @@
         // Fonction pour enregistrer la carte dans le stockage local
         function saveCardToLocalStorage(cardInfo) {
             // Obtenez la liste actuelle de cartes du stockage local (si elle existe)
-            const existingCards = JSON.parse(localStorage.getItem("yugiohCollection")) || { cartes: [] };
+            const existingCards = JSON.parse(localStorage.getItem("../json/yugiohCollection")) || { cartes: [] };
 
             // Vérifiez si la carte est déjà dans la liste
             const existingCardIndex = existingCards.cartes.findIndex(card => card.name === cardInfo.name);
@@ -85,7 +85,7 @@
                 });
 
                 // Mettez à jour le stockage local
-                localStorage.setItem("yugiohCollection", JSON.stringify(existingCards));
+                localStorage.setItem("../json/yugiohCollection", JSON.stringify(existingCards));
             }
         }
 
@@ -97,7 +97,7 @@
             ownedCardsTableBody.innerHTML = "";
 
             // Obtenez la liste actuelle de cartes du stockage local
-            const existingCards = JSON.parse(localStorage.getItem("yugiohCollection")) || { cartes: [] };
+            const existingCards = JSON.parse(localStorage.getItem("../json/yugiohCollection")) || { cartes: [] };
 
             // Parcourez les cartes et ajoutez-les au tableau
             existingCards.cartes.forEach(card => {
