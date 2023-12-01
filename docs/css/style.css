@@ -35,3 +35,22 @@ footer {
     background-color: #333;
     color: #fff;
 }
+
+.about-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.image-container img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px; /* Ajoutez ceci pour arrondir les coins de l'image */
+}
+
+.info-container {
+    max-width: 60%; /* Ajustez la largeur de la colonne d'informations selon vos besoins */
+}
+
+/* Ajoutez des styles supplémentaires selon vos préférences */
+
