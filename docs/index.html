@@ -31,8 +31,35 @@
         <!-- Ajoutez d'autres projets au besoin -->
     </section>
 
+    <section>
+        <h2>Expériences Professionnelles</h2>
+        <p><a href="html/experiences.html">Voir mes expériences professionnelles</a></p>
+    </section>
+
+    <section>
+        <h2>Parcours Scolaire</h2>
+        <p><a href="html/parcours.html">Voir mon parcours scolaire</a></p>
+    </section>
+
+    <!-- Formulaire de contact -->
+    <section>
+        <h2>Contactez-moi</h2>
+        <form action="traitement_form.php" method="post">
+            <label for="nom">Nom :</label>
+            <input type="text" id="nom" name="nom" required>
+
+            <label for="email">Email :</label>
+            <input type="email" id="email" name="email" required>
+
+            <label for="message">Message :</label>
+            <textarea id="message" name="message" rows="4" required></textarea>
+
+            <input type="submit" value="Envoyer">
+        </form>
+    </section>
+
     <footer>
-        <p>Contactez-moi: email@example.com</p>
+        <p><a href="mailto:email@example.com">Contactez-moi par e-mail</a></p>
     </footer>
 
 </body>
