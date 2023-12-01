@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recherche de Carte Yu-Gi-Oh!</title>
+</head>
+<body>
+
+    <h1>Recherche de Carte Yu-Gi-Oh!</h1>
+
+    <label for="cardName">Nom de la Carte :</label>
+    <input type="text" id="cardName" placeholder="Entrez le nom de la carte">
+    <button onclick="searchCard()">Rechercher</button>
+
+    <div id="card-info"></div>
+
+    <!-- Nouvelle section pour afficher les cartes possédées -->
+    <section>
+        <h2>Mes Cartes Yu-Gi-Oh! Possédées</h2>
+        <table id="owned-cards">
+            <thead>
+                <tr>
+                    <th>Nom de la Carte</th>
+                    <th>Statut</th>
+                </tr>
+            </thead>
+            <tbody id="owned-cards-body"></tbody>
+        </table>
+    </section>
+
+    <script>
+        // Fonction pour rechercher la carte
+        function searchCard() {
+            // Obtenez le nom de la carte depuis le champ de texte
+            const cardName = document.getElementById("cardName").value;
+
+            // Ici, vous effectuez votre recherche API, par exemple, avec fetch
+            // ...
+
+            // Simulez la réponse de l'API (remplacez cela par la vraie réponse de votre API)
+            const apiResponse = {
+                data: {
+                    cardInfo: {
+                        name: cardName,
+                        type: "Monster",
+                        atk: 2000,
+                        def: 1500
+                    }
+                }
+            };
+
+            // Manipulez les données de la carte ici
+            const cardInfo = apiResponse.data.cardInfo;
+
+            // Affichez les informations de la carte
+            const cardInfoDiv = document.getElementById("card-info");
+            cardInfoDiv.innerHTML = `
+                <h2>${cardInfo.name}</h2>
+                <p>Type: ${cardInfo.type}</p>
+                <p>Attaque: ${cardInfo.atk}</p>
+                <p>Défense: ${cardInfo.def}</p>
+            `;
+
+            // Enregistrez la carte dans le stockage local
+            saveCardToLocalStorage(cardInfo);
+
+            // Mettez à jour le tableau des cartes possédées
+            updateOwnedCardsTable();
+        }
+
+        // Fonction pour enregistrer la carte dans le stockage local
+        function saveCardToLocalStorage(cardInfo) {
+            // Obtenez la liste actuelle de cartes du stockage local (si elle existe)
+            const existingCards = JSON.parse(localStorage.getItem("yugiohCollection")) || { cartes: [] };
+
+            // Vérifiez si la carte est déjà dans la liste
+            const existingCardIndex = existingCards.cartes.findIndex(card => card.name === cardInfo.name);
+
+            if (existingCardIndex === -1) {
+                // Si la carte n'est pas déjà dans la liste, ajoutez-la
+                existingCards.cartes.push({
+                    name: cardInfo.name,
+                    possede: true // Vous pouvez ajuster cela en fonction de votre logique
+                });
+
+                // Mettez à jour le stockage local
+                localStorage.setItem("yugiohCollection", JSON.stringify(existingCards));
+            }
+        }
+
+        // Fonction pour mettre à jour le tableau des cartes possédées
+        function updateOwnedCardsTable() {
+            const ownedCardsTableBody = document.getElementById("owned-cards-body");
+
+            // Effacer le contenu actuel du tableau
+            ownedCardsTableBody.innerHTML = "";
+
+            // Obtenez la liste actuelle de cartes du stockage local
+            const existingCards = JSON.parse(localStorage.getItem("yugiohCollection")) || { cartes: [] };
+
+            // Parcourez les cartes et ajoutez-les au tableau
+            existingCards.cartes.forEach(card => {
+                const row = ownedCardsTableBody.insertRow();
+                const cell1 = row.insertCell(0);
+                const cell2 = row.insertCell(1);
+
+                cell1.textContent = card.name;
+                cell2.textContent = card.possede ? "Possédée" : "Non Possédée";
+            });
+        }
+
+        // Mettez à jour le tableau des cartes possédées lors du chargement de la page
+        window.onload = updateOwnedCardsTable;
+    </script>
+
+</body>
+</html>
