@@ -33,34 +33,12 @@
     </section>
 
     <script>
-        // Fonction pour rechercher la carte
-        function searchCard() {
-            // Obtenez le nom de la carte depuis le champ de texte
-            const cardNameQuery = document.getElementById("cardName").value.toLowerCase();
-
-            // Ici, vous effectuez votre recherche API, par exemple, avec fetch
-            // ...
-
-            // Simulez la réponse de l'API (remplacez cela par la vraie réponse de votre API)
-            const apiResponse = {
-                data: {
-                    cards: [
-                        { name: "Dark Magician", type: "Monster", atk: 2000, def: 1500 },
-                        { name: "Blue-Eyes White Dragon", type: "Monster", atk: 3000, def: 2500 },
-                        // Ajoutez d'autres cartes au besoin
-                    ]
-                }
-            };
-
-            // Manipulez les données des cartes ici
-            const cards = apiResponse.data.cards;
-
-            // Filtrer les cartes en fonction de la chaîne de recherche
-            const filteredCards = cards.filter(card => card.name.toLowerCase().includes(cardNameQuery));
-
-            // Affichez les résultats de la recherche
-            updateSearchResultsTable(filteredCards);
-        }
+            // Fonction pour effectuer une recherche et obtenir les noms des cartes depuis l'API Yu-Gi-Oh!
+            async function fetchCards(cardName) {
+                const response = await fetch(`http://localhost:3000/api/cards?name=${cardName}`);
+                const cardNames = await response.json();
+                return cardNames;
+            }
 
         // Fonction pour mettre à jour le tableau des résultats de la recherche
         function updateSearchResultsTable(filteredCards) {
@@ -91,6 +69,61 @@
                 cell5.appendChild(checkbox);
             });
         }
+
+
+
+        // Fonction pour rechercher la carte
+        async function searchCard() {
+            // Obtenez le nom de la carte depuis le champ de texte
+            const cardNameQuery = document.getElementById("cardName").value.toLowerCase();
+
+            // Récupérez les noms des cartes depuis l'API Yu-Gi-Oh!
+            const cardNames = await fetchCards(cardNameQuery);
+
+            // Affichez les résultats de la recherche
+            updateSearchResultsTable(cardNames);
+        }
+
+        // Fonction pour mettre à jour le tableau des résultats de la recherche
+        function updateSearchResultsTable(cardNames) {
+            // ... Autre code ...
+
+            // Ajoutez une case à cocher pour indiquer si la carte est possédée
+            cardNames.forEach(cardName => {
+                const row = searchResultsTableBody.insertRow();
+                const cell1 = row.insertCell(0);
+                const cell2 = row.insertCell(1);
+                const cell3 = row.insertCell(2);
+                const cell4 = row.insertCell(3);
+                const cell5 = row.insertCell(4);
+
+                cell1.textContent = cardName;
+                // ... Autre code ...
+
+                const checkbox = document.createElement("input");
+                checkbox.type = "checkbox";
+                checkbox.addEventListener("change", async function() {
+                    // Mettre à jour la collection lors du changement de la case à cocher
+                    const response = await fetch('http://localhost:3000/api/updateCollection', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({
+                            cardName,
+                            possede: checkbox.checked,
+                        }),
+                    });
+
+                    const updatedCollection = await response.json();
+                    console.log('Collection mise à jour :', updatedCollection);
+                });
+
+                cell5.appendChild(checkbox);
+            });
+        }
+
+
     </script>
 
 </body>
