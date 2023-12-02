@@ -2,7 +2,7 @@ body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #f4f4f4;
+    background-color: rgb(172, 251, 255);
     color: #333;
 }
 
@@ -33,6 +33,7 @@ footer {
     text-align: center;
     padding: 1em 0;
     background-color: #333;
+    hyphenate-character: red;
     color: #fff;
 }
 
