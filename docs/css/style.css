@@ -2,12 +2,12 @@ body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    background-color: rgb(172, 251, 255);
-    color: #333;
+    background-color: rgb(250, 230, 191);
+    color: #0e0a0a;
 }
 
 header {
-    background-color: #333;
+    background-color: rgb(78, 64, 64);
     color: #fff;
     text-align: center;
     padding: 1em 0;
@@ -17,12 +17,16 @@ section {
     max-width: 800px;
     margin: 2em auto;
     padding: 20px;
-    background-color: #fff;
+    background-color: rgb(117, 180, 116);
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-h1, h2 {
-    color: #333;
+h1 {
+    color: #cbebef;
+}
+
+h2 {
+    color: #030f11;
 }
 
 .project {
