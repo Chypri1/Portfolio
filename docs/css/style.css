@@ -39,6 +39,7 @@ footer {
     background-color: #333;
     hyphenate-character: red;
     color: #fff;
+    bottom: 0;
 }
 
 .about-container {
@@ -55,6 +56,11 @@ footer {
 
 .info-container {
     max-width: 60%; /* Ajustez la largeur de la colonne d'informations selon vos besoins */
+}
+
+a{
+    color : white;
+    text-decoration: none;
 }
 
 /* Ajoutez des styles supplémentaires selon vos préférences */
